@@ -3,6 +3,7 @@ import '../index.css'
 const  jwt_decode = require('jwt-decode');
 const axios = require('axios');
 const dayjs = require('dayjs');
+import '../icon.png'
 
 
 // const LOADER = document.querySelector(".loader-container");
