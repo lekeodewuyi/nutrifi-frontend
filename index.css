@@ -714,6 +714,8 @@ button:active {
     /* background-color: white; */
     background: rgb(255,255,255);
     background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+    border: 1px solid #ffeae4;
+    border-radius: 20px;
 }
 
 .recipe-info-wrapper {
