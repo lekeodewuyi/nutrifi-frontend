@@ -1,0 +1,59 @@
+{
+  "name": "nutrifi",
+  "version": "1.0.0",
+  "description": "Search app for user with health conditions",
+  "main": "script.js",
+  "browserslist": [
+    "> 1%",
+    "ie > 9"
+  ],
+  "dependencies": {
+    "axios": "^0.19.2",
+    "dayjs": "^1.8.35",
+    "express": "^4.17.1",
+    "firebase": "^7.15.5",
+    "jwt-decode": "^2.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "autoprefixer": "^9.8.6",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.1.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^4.3.0",
+    "file-loader": "^6.1.0",
+    "html-webpack-plugin": "^4.4.1",
+    "mini-css-extract-plugin": "^0.11.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "postcss-loader": "^4.0.1",
+    "style-loader": "^1.2.1",
+    "terser-webpack-plugin": "^4.2.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack -p",
+    "start": "webpack-dev-server --output-public-path=/build",
+    "start:dev": "webpack-dev-server"
+  },
+  "author": "Leke Odewuyi",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lekeodewuyi/nutrifi-build.git"
+  },
+  "keywords": [
+    "Food",
+    "Recipe",
+    "Search"
+  ],
+  "bugs": {
+    "url": "https://github.com/lekeodewuyi/nutrifi-build/issues"
+  },
+  "homepage": "https://github.com/lekeodewuyi/nutrifi-build#readme"
+}

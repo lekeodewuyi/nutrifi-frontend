@@ -1,0 +1,1370 @@
+html {
+    font-family: 'Noto Sans JP', sans-serif;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+    
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    touch-action: manipulation;
+    margin: 0;
+    padding: 0;
+    /* background-color: aliceblue; */
+    background-color: rgb(250, 253, 255);
+    color: #616161;
+    scroll-behavior: smooth;
+}
+
+.orange {
+    color: #de4010;
+}
+
+.current-user {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.current-user:hover {
+    background-color: #ffe8e1;
+}
+
+.current-user > .material-icons {
+    font-size: 29px;
+    margin-right: 10px;
+}
+
+.session-expired-modal {
+   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: absolute;
+    z-index: 15;
+    background: white;
+    display: flex;
+
+    position: fixed;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 430px;
+    height: 250px;
+    top: 0px;
+    bottom: 0px;
+    border: 1px solid rgb(255, 233, 227);
+
+
+    padding: 40px 50px;
+    border-radius: 10px;
+    box-shadow: rgba(4, 74, 111, 0.5) 0px 10px 30px -15px;
+}
+
+.user-profile-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: absolute;
+    z-index: 10;
+    background: white;
+    display: flex;
+
+    position: absolute;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 430px;
+    height: 650px;
+    top: 0px;
+    bottom: 0;
+
+
+    padding: 40px 50px;
+    border-radius: 10px;
+    box-shadow: rgba(4, 74, 111, 0.5) 0px 10px 30px -15px;
+}
+
+.user-profile-modal h3, .user-profile-modal h4, .user-profile-modal p {
+    padding: 0;
+    margin: 0;
+}
+
+#user-profile-header {
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+}
+
+#edit-your-info {
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    margin: 0px 10px;
+    padding: 5px 10px 5px 10px;
+    border: 1px solid #ffc0ac;
+    border-radius: 5px;
+}
+
+#edit-your-info:hover {
+    color: #de4010;
+}
+
+#edit-your-info .material-icons {
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.user-profile-modal .profile-sub-text {
+    color: #919191;
+    font-size: 0.8rem;
+    margin: 0px 0px;
+}
+
+.profile-main-text {
+    white-space: pre-wrap;
+}
+
+#profile-user-name, #profile-user-email {
+    margin-bottom: 30px;
+}
+
+#profile-name-input {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    padding: 10px 10px;
+    font-family: inherit;
+    color: inherit;
+    font-size: 1rem;
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid rgb(184, 184, 184);
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#profile-name-input::placeholder {
+    font-size: 0.8rem;
+}
+
+.update-conditions-div {
+    margin-bottom: 50px;
+    display: flex;
+}
+
+.update-condition {
+    display: flex;
+}
+
+.update-condition-button-wrap {
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    border-radius: 50px;
+    border: 1px solid rgb(184, 184, 184);
+    background-color: white;
+    color: rgb(154, 154, 154);
+
+    margin: 7px 15px 7px 0px;
+}
+
+.update-condition-button-wrap:hover{
+    background-color: white;
+}
+
+.update-condition-button-wrap > .material-icons {
+    color: rgb(184, 184, 184);
+}
+
+.update-condition-button-wrap:hover > .material-icons {
+    color: #de4010;
+}
+
+.medical-selected {
+    border: 1px solid #de4010;
+    color: #de4010;
+}
+
+.medical-selected > .material-icons {
+    color: #de4010;
+}
+
+
+.update-user-btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 300px;
+    margin-left: 16px;
+}
+
+
+#update-user-profile-btn {
+    width: 100px;
+    font-size: 1rem;
+    height: 35px;
+    border-radius: 5px;
+}
+
+#update-user-profile-btn > .loader2{
+    border: 3px solid white;
+    border-top: 3px solid transparent;
+}
+
+#close-btn-user-profile {
+    font-size: 1rem;
+    height: 35px;
+    width: 100px;
+    margin: 0;
+    border: 1px solid rgba(213, 35, 22, 0.4);
+    /* border-bottom: 0; */
+}
+
+
+#update-error {
+    width: 100%;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.7rem;
+    color: rgba(213, 35, 22, 0.8)
+}
+
+#user-reg-date {
+    font-size: 0.7rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+}
+
+
+
+.loader-container {
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-container.hidden {
+    animation: fadeOut 1s;
+    animation-fill-mode: forwards; /*  When animation finishes, the fadeOut properties stay */
+}
+
+@keyframes fadeOut {
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+a, a:visited {
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(255, 119, 0);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#nav-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+    background-color: white;
+    z-index: 5;
+
+    position:fixed;
+    max-width: 100%;
+    width: 100vw;
+
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: rgba(4, 74, 111, 0.2) 0px 10px 30px -15px;
+}
+
+#home-and-auth {
+    padding: 0px 50px;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+#nav-home {
+    text-decoration: none;
+    color: #de4010;
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-size: 1.5em;
+}
+
+#nav-home:hover {
+    text-decoration: none;
+    color: #ff6435;
+    background-color: #fff8f7;
+    /* padding: 3px 5px; */
+    /* border-color: #ffdacf; */
+    /* border-style: solid;border-width: 0.1rem; */
+    font-size: 1.5em;
+}
+
+#nav-authentication {
+    display: flex;
+    align-items: center;
+}
+
+#home-and-search {
+    display: flex;
+    align-items: center;
+}
+
+.search-nav-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    width: 500px;
+    height: 40px;
+    border:1px solid #cccccc;
+    border-radius: 5px;
+    margin-left: 40px;
+
+    display: none;
+}
+
+.search-nav-container-mobile {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid #cccccc; */
+    width: 340px;
+    width:90vw;
+    height: 40px;
+    margin-top: 20px;
+
+    border-radius: 35px;
+    display: none;
+}
+
+.search-nav-container-mobile input{
+    font-family: inherit;
+    color: inherit;
+    padding: 20px;
+    border: 1px solid #cccccc;
+    width: 340px;
+    width: 90vw;
+    border-radius: 35px;
+    background-color: transparent;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.search-nav-container-mobile input:focus {
+    outline: 0;
+    border: 1px solid #de4010;
+}
+
+.search-icon-mobile {
+    position: absolute;
+    right: 0;
+    padding-right: 30px;
+    color: #de4010;
+}
+
+.search-nav {
+    color: inherit;
+    font-family: inherit;
+    font-size: 16px;
+    width: 500px;
+    height: 38px;
+    padding: 0 10px;
+    border-radius: 10px;
+    border-style: none;
+
+}
+
+.search-icon {
+    position: absolute;
+    right: 0;
+    padding: 0px 10px;
+    /* color: #cccccc; */
+    cursor: pointer;
+    padding-left: 7px;
+    border-style: none;
+}
+
+.search-icon:hover {
+    color: #ed4700;
+    /* cursor: pointer;
+    padding-left: 7px;
+    width: 40px;
+    border-style: none; */
+}
+
+#nav-logout {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(213, 35, 22);
+}
+
+.auth {
+    width:110px;
+    height:40px;
+    text-align:center;
+    line-height:1.1em;
+    font-size:1.1em;
+    margin-left: 50px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+.auth-header {
+    margin-bottom: 20px;
+}
+
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* isolation: isolate; */
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    margin: 0;
+    background: #ed4700;
+    color: #ffffff;
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+button:hover,
+button:focus {
+    background: rgb(255, 108, 55);
+    box-shadow: rgba(4, 74, 111, 0.3) 0px 10px 30px -15px;
+}
+
+button:focus {
+    outline: 1px solid #fff;
+    outline-offset: -4px;
+}
+
+button:active {
+    transform: scale(0.99);
+}
+
+#nav-signup {
+    color: #ed4700;
+    background-color: rgba(237,71,0,0.05);
+    border-color: #ed4700;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#nav-signup:hover,
+#nav-signup:focus {
+    color: #ed4700;
+    background-color: rgba(237,71,0,0.15);
+    border-color: #ed4700;
+    border-style: solid;
+    border-width: 2.5px;
+    box-shadow: rgba(4, 74, 111, 0.3) 0px 10px 30px -15px;
+}
+
+#main-wrap {
+    margin: 0 auto;
+    padding-top: 170px;
+    height: Calc(100vh - 100px);
+    /* height: Calc(100% - 100px); */
+    /* height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+}
+
+#search-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: right;
+    justify-content: center;
+}
+
+.query {
+    font-family: inherit;
+    color: rgb(87, 87, 87);
+    width:800px;
+    height:50px;
+    line-height:1.1em;
+    font-size:1.1em;
+
+    padding: 10px 20px;
+    border-radius: 150px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(184, 184, 184);
+    margin-top: 0;
+
+    /* color: inherit; */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.query:focus, .query:hover {
+    outline: 0;
+    border: 1px solid #ed4700;
+    box-shadow: rgba(4, 74, 111, 0.5) 20px 10px 30px -15px;
+}
+
+.search {
+    padding: 10px 15px;
+    margin-top: 30px;
+    line-height:1.1em;
+    font-size:1.1em;
+}
+
+#error {
+    text-align: center;
+    padding: 0px 10px;
+    font-size: 0.8rem
+}
+
+.auth-input-wrap {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sub-auth-wrap {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 40px 90px;
+    border-radius: 10px;
+    box-shadow: rgba(4, 74, 111, 0.5) 0px 10px 30px -15px;
+}
+
+.close-btn {
+    font-size: 14px;
+    color: rgb(213, 35, 22);
+    background-color: white;
+    border-bottom: 1px solid rgb(255, 210, 210);
+    margin-top: 20px;
+    width: 80px;
+    height: 35px;
+}
+
+.close-btn:hover {
+    color: rgb(255, 30, 30);
+    background-color: white;
+    border-bottom: 1px solid rgb(255, 210, 210);
+}
+
+#auth-login-wrap, #auth-signup-wrap {
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    z-index: 20;
+}
+
+.auth-signup-wrap {
+    margin-bottom: -450px;
+    padding-bottom: 100px;
+ }
+
+.signup-allergy-summary {
+    /* position: absolute; */
+    margin-top: 50px;
+    bottom: 0;
+    font-size: 0.5rem;
+}
+
+.auth-btn {
+    padding: 15px 30px;
+    margin-top: 30px;
+    line-height:1.1em;
+    font-size:1.1em;
+}
+
+.sub-link {
+    padding: 10px;
+}
+
+#home-caption {
+    margin-top: 70px;
+    text-align: center;
+}
+
+.home-caption-images {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.home-caption-images-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 20px;
+}
+
+.home-caption-images-item > .material-icons {
+    font-size: 40px;
+}
+
+.home-caption-images-item > p {
+    font-size: 0.8rem;
+}
+
+#home-caption > p {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+
+#home-main-logo {
+    font-size: 100px;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+#search-header {
+    font-size: 40px;
+}
+
+#results {
+    display: none;
+}
+
+#results-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 200px;
+    padding: 0px 5px;
+    /* background-color: yellow; */
+}
+
+
+
+/***************STYLE RESULTS**************/
+
+#resultsx {
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-result {
+    /* box-shadow: rgba(2, 12, 27, 0.3) 0px 10px 30px -15px; */
+    box-shadow: rgba(4, 74, 111, 0.5) 0px 10px 30px -15px;
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    padding: 40px 80px;
+    /* background-color: white; */
+    background: rgb(255,255,255);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+}
+
+.recipe-info-wrapper {
+    color: #616161;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recipe-info-wrapper img {
+    border-radius: 15px;
+    border-color: aliceblue;
+    border-style: solid;
+    box-shadow: rgba(3, 45, 68, 0.5) 0px 10px 30px -15px;
+    width: 300px;
+}
+
+.recipe-lists-wrapper {
+    color: #616161;
+    font-size: 14px;
+    /* display: flex; */
+    justify-content: space-evenly;
+}
+
+.recipe-ingredients-wrapper {
+    /* background-color: azure; */
+    flex: 1;
+    margin: 30px 0;
+}
+
+.recipe-instructions-wrapper {
+    flex: 1;
+}
+
+.ingredient-header, .instructions-header {
+    color: #de4010;
+}
+
+
+/*********************INPUT FIELDS***********************/
+.cancel {
+    font-size: 30px;
+    z-index: 12;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px;
+    padding: 5px;
+    color: rgb(213, 35, 22);
+    opacity: 1;
+    border-radius: 50px;
+    transition: 0.2s;
+}
+
+
+.auth-input {
+    width: 400px;
+    font-size: 16px;
+    padding: 10px 10px;
+    border: none;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+    background: white;
+    box-sizing: border-box;
+    transition: all 0.3s linear;
+    color: inherit;
+    font-family: inherit;
+    font-weight: 400;
+}
+
+.auth-input::placeholder {
+    color: grey;
+}
+
+.auth-input:focus {
+    border-bottom: solid 1px #ff6435;
+    outline: 0;
+}
+
+label {
+    font-size: 12px;
+    /* color: white; */
+    opacity: 0.8;
+    font-weight: 400;
+}
+
+.auth-input-field {
+    position: relative;
+    margin-top: 30px;
+}
+
+.auth-input-field label {
+    position: absolute;
+    padding-left: 10px;
+    left: 0;
+    top: calc(50% - 10px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.auth-input-field input:not(:placeholder-shown) {
+    padding:30px 10px 10px 10px;
+}
+
+.auth-input-field input:not(:placeholder-shown) + label {
+    transform: translateY(-10px);
+    color: #ff6435;
+    opacity: 1;
+}
+
+.auth-input-field input:hover {
+    box-shadow: rgba(4, 74, 111, 0.3) 0px 10px 30px -15px;
+}
+
+
+/**************ALLERGY BUTTONS ***********************/
+.sign-up-medical p {
+    font-size: 13px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+.sign-up-medical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.medical-container {
+    display: flex;
+}
+
+.medical-condition-wrap {
+    display: flex;
+    position: relative;
+    align-items: center;
+
+    width: 110px;
+    margin: 0px 15px;
+}
+
+.medical-condition-wrap:hover button{
+    /* color: #ed4700; */
+    /* border: 1px solid #ff6435; */
+    box-shadow: rgba(4, 74, 111, 1) 0px 10px 25px -12px;
+}
+
+.medical-condition-wrap:hover  .allergy-icon{
+    color: #ed4700;
+    box-shadow: rgba(4, 74, 111, 0.5) 0px 10px 30px -15px;
+}
+
+.allergy-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    color: rgb(162, 162, 162);
+    padding-right: 10px;
+}
+
+.medical-condition-wrap button {
+    border-radius: 20px;
+    font-size: 15px;
+    width: 100%;
+    height: 40px;
+    padding-right: 40px;
+    padding-left: 10px;
+    color: rgb(162, 162, 162);
+    /* color: #ed4700; */
+    background-color: white;
+    border: 1px solid rgb(162, 162, 162);
+    /* border: 1px solid #ff6435; */
+}
+
+
+
+
+
+
+footer {
+    padding-top: 10px;
+    color: #969696;
+    text-align: center;
+    position: fixed;
+    font-size: 0.7rem;
+    bottom: 0px;
+    padding-bottom: 0px;
+    width: 100vw;
+    background-color: white;
+}
+
+footer .big-footer {
+   margin: 0;
+   padding: 0;
+   white-space: pre;
+}
+
+.made-by-mobile {
+    display: none;
+}
+
+
+
+.error {
+    color: red;
+}
+
+.wrong-credentials {
+    margin-bottom: -15px;
+    font-size: 0.8rem;
+    color: red;
+}
+
+.red {
+    font-size: 1rem;
+}
+
+.red::placeholder {
+    opacity: 1;
+    font-size: 0.8rem;
+    color: #ff6435;
+}
+
+
+.loader {
+    margin-left: 15px;
+	border: 3px solid white;
+	border-radius: 50%;
+	border-top: 3px solid transparent;
+	width: 20px;
+	height: 20px;
+	-webkit-animation: spin 2s linear infinite;
+	animation: spin 2s linear infinite;
+}
+
+.loader2 {
+    margin-left: 5px;
+    display: inline-block;
+    /* color: blue; */
+    /* background-color: red; */
+   border: 3px solid #616161;
+   border-top: 2px solid transparent;
+   border-radius: 100px;
+   width: 25px;
+   height: 25px;
+	-webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+	0% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+}
+  
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+
+.hide {
+    display: none;
+}
+
+
+@media (max-width: 1100px) {
+   .search-nav-container {
+       display: none;
+   }
+
+
+   .search-icon-mobile {
+       display: flex;
+   }
+}
+
+@media (max-width: 800px) {
+    #home-main-logo {
+        font-size: 80px;
+    }
+
+    #query {
+        width: 600px;
+        width: 90vw;
+    }
+
+    #home-caption {
+        font-size: 15px;
+        margin-top: 45px;
+    }
+
+    #search-header {
+        font-size: 2.4rem
+    }
+
+
+    .recipe-info-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+}
+
+
+
+@media (max-width: 600px) {
+    #home-main-logo {
+        font-size: 70px;
+    }
+
+    #query {
+        width: 450px;
+        width: 90vw;
+    }
+
+    #home-caption {
+        font-size: 15px;
+        margin-top: 30px;
+    }
+
+    .home-caption-images {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    .home-caption-images-item {
+
+        margin: 10px 20px;
+    }
+    
+    .home-caption-images-item > .material-icons {
+        font-size: 20px;
+    }
+    
+    .home-caption-images-item > p {
+        font-size: 0.7rem;
+    }
+    
+    #home-caption > p {
+        padding: 0px 30px;
+        margin-top: 10px;
+        text-align: center;
+        font-size: 0.7rem;
+    }
+
+    #search-header {
+        font-size: 2.1rem
+    }
+
+    .made-by-mobile {
+        display: block;
+    }
+
+    .made-by-mobile p {
+        margin: 0px;
+        margin-bottom: 10px;
+    }
+
+    .made-by-mobile .made-by {
+        margin-bottom: 5px;
+    }
+
+    .big-footer {
+        display: none;
+    }
+}
+
+
+@media (max-width: 550px) {
+    #home-main-logo {
+        font-size: 50px;
+    }
+
+    #search-header {
+        font-size: 1.8rem
+    }
+
+    #nav-signup {
+        display: none;
+    }
+
+    #query {
+        width: 350px;
+        width: 90vw;
+    }
+
+    #home-caption {
+        /* text-align: left; */
+        width: 320px;
+        margin-top: 30px;
+    }
+
+    #home-and-auth {
+        position: relative;
+    }
+
+    #nav-logout {
+        width: 80px;
+        height: 30px;
+        font-size: 0.9rem;
+        background-color: rgb(213, 35, 22);
+    }
+
+    .current-user {
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        font-size: 1rem;
+        margin-top: 0px;
+        margin-right: 150px;
+        right: 0;
+    }
+
+    .current-user > .material-icons {
+        margin-right: 5px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .session-expired-modal {
+        width: 350px;
+        height: 250px;
+        text-align: center;
+    }
+
+    .user-profile-modal {
+
+        width: 340px;
+        height: 600px;
+    
+        padding: 40px 25px;
+    }
+
+    #user-profile-header {
+        margin-top: -10px;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    #edit-your-info {
+        margin: 0;
+    }
+
+    .update-conditions-div {
+        margin-bottom: 50px;
+        display: flex;
+    }
+    
+    .update-condition-button-wrap {
+        font-size: 0.8rem;
+        width: 90px;
+        margin: 7px 10px 7px 0px;
+    }
+
+
+    .update-user-btns {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: 0;
+        margin-right: 0px;
+
+    }
+    
+    
+    #update-user-profile-btn {
+        width: 100%;
+        font-size: 1rem;
+        height: 40px;
+        border-radius: 30px;
+        margin-bottom: 15px;
+    }
+    
+    #close-btn-user-profile {
+        font-size: 0.9rem;
+        height: 30px;
+        width: 100%;
+        margin: 0;
+        border-radius: 30px;
+    }
+
+
+
+
+    #main-wrap {
+        /* height: Calc(100vh - 200px) */
+    }
+    #nav-container {
+        padding: 10px 20px
+    }
+
+    #home-main-logo {
+        font-size: 40px;
+
+        margin-top: -50px;
+    }
+
+    #home-and-auth {
+        padding: 10px 20px;
+        width: 100vw;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #nav-signup {
+        display: none;
+    }
+
+    #query {
+        width: 350px;
+        width: 90vw;
+        height: 46px;
+        padding: 0px 20px;
+    }
+
+    #home-caption {
+        text-align: left;
+        width: 320px;
+        margin-top: 30px;
+    }
+
+    .auth-login-wrap {
+        margin-bottom: -150px;
+        padding-bottom: 100px;
+    }
+
+    .auth-signup-wrap {
+       margin-bottom: -450px;
+       margin-bottom: -700px;
+       padding-bottom: 100px;
+    }
+
+    .sub-auth-wrap {
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        padding: 40px 10px;
+        border-radius: 10px;
+        box-shadow: rgba(4, 74, 111, 0.5) 0px 10px 30px -15px;
+    }
+
+    .sign-up-medical p {
+        margin-top: 40px;
+        width: 320px;
+    }
+
+    .medical-condition-wrap {
+        width: 100px;
+        margin: 0 5px;
+    }
+
+    .medical-condition-wrap button{
+        font-size: 12px;
+    }
+
+    .medical-container {
+        margin-bottom: 20px;
+    }
+
+    .auth-input {
+        width: 320px;
+    }
+
+    .auth-btn {
+        width: 320px;
+        border-radius: 30px;
+        margin-bottom: 10px;
+    }
+
+
+
+    #nav-logout {
+        width: 80px;
+        height: 30px;
+        font-size: 0.9rem;
+        background-color: rgb(213, 35, 22);
+    }
+
+    .current-user {
+        width: 150px;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        font-size: 0.8rem;
+        margin-top: 0px;
+        margin: auto;
+        left: 0;
+        /* margin-right: 105px; */
+        right: 0;
+    }
+
+
+    /*****RESULTS******/
+
+    #search-header {
+        font-size: 1.5rem;
+    }
+
+    .recipe-result {
+        padding: 20px 40px;
+        margin: 50px 0px;
+    }
+
+    .recipe-info-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .recipe-info-wrapper img {
+        width: 230px;
+    }
+
+    .recipe-lists-wrapper {
+        font-size: 13px;
+    }
+}
+
+
+
+
+@media (hover: none) {
+    .medical-condition-wrap:hover .allergy-icon, .medical-condition-wrap:hover button {
+		color: rgb(162, 162, 162);
+        box-shadow: rgba(4, 74, 111, 0) 0px 10px 30px -15px;
+    }
+    .update-condition-button-wrap:hover > .material-icons {
+        color: inherit;
+    }
+    .current-user:hover {
+        background-color: white;
+    }
+
+}
+
+
+
+
+
+.hide {
+    display: none;
+}
+
+.no-pointer-event {
+    pointer-events: none;
+}
