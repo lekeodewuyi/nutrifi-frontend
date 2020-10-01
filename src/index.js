@@ -1,27 +1,8 @@
 import '../index.css'
-// import '../gifs/loader.gif'
 const  jwt_decode = require('jwt-decode');
 const axios = require('axios');
 const dayjs = require('dayjs');
 import '../icon.png'
-
-
-// const LOADER = document.querySelector(".loader-container");
-// window.addEventListener("load", function() {
-//     LOADER.className += " hidden";
-// })
-
-const body = document.querySelector("body");
-
-const resultsWrapper = document.querySelector("#results-wrap");
-
-
-function updateCurrentUser(userDetails){
-    let currentUser = userDetails;
-    console.log(currentUser);
-    return localStorage.setItem('currentUser', JSON.stringify(currentUser))
-}
-
 
 const userProfileModal =  document.querySelector(".user-profile-modal");
 
@@ -37,21 +18,21 @@ const NAV_HOME= document.querySelector("#nav-home")
 const SEARCH_NAV_CONTAINER = document.querySelector("#search-nav-container");
 const MOBILE_SEARCH_NAV_CONTAINER = document.querySelector("#search-nav-container-mobile");
 
-const CURRENT_USER = document.querySelector("#current-user"); //Current User Display Name
+const CURRENT_USER = document.querySelector("#current-user");
 
 const MAIN_WRAP = document.querySelector("#main-wrap")
 
 const sessionExpiredModal = document.querySelector(".session-expired-modal");
 
-const NAV_LOGIN_BTN = document.querySelector("#nav-login"); //Nav Login Button
-const LOGIN_LINK = document.querySelector("#login-link"); // Login link on signup page
-const NAV_SIGNUP_BTN = document.querySelector("#nav-signup"); // Nav Signup Button
-const SIGNUP_LINK = document.querySelector("#signup-link"); // Signup link on login page
-const NAV_LOGOUT_BTN = document.querySelector("#nav-logout"); // Nav logout Button
+const NAV_LOGIN_BTN = document.querySelector("#nav-login");
+const LOGIN_LINK = document.querySelector("#login-link");
+const NAV_SIGNUP_BTN = document.querySelector("#nav-signup");
+const SIGNUP_LINK = document.querySelector("#signup-link");
+const NAV_LOGOUT_BTN = document.querySelector("#nav-logout");
 
-const AUTH_LOGIN_WRAP = document.querySelector("#auth-login-wrap"); //Login Field Container
-const AUTH_SIGNUP_WRAP = document.querySelector("#auth-signup-wrap"); //Signup Field Container
-const SEARCH_WRAP = document.querySelector("#search-wrap"); // Search Field Container
+const AUTH_LOGIN_WRAP = document.querySelector("#auth-login-wrap");
+const AUTH_SIGNUP_WRAP = document.querySelector("#auth-signup-wrap");
+const SEARCH_WRAP = document.querySelector("#search-wrap");
 
 const LOGIN_EMAIL = document.querySelector("#login-email");
 const LOGIN_PASSWORD = document.querySelector("#login-password");
@@ -106,31 +87,14 @@ const updateDiabetesIconTrue = document.querySelector("#update-diabetes .update-
 const updateDiabetesIconFalse = document.querySelector("#update-diabetes .update-false");
 
 const loaderUpdate = document.querySelector("#update-user-profile-btn .loader2");
-
 const closeExpiredModal = document.querySelector(".expired-modal-cancel");
-
 closeExpiredModal.addEventListener("click", logout, false);
 
 
-// let state = {
-//     searchResult: "",
-//     searchHeader: "",
-//     searchQuery: "",
-//     // body: body.innerHTML
-// }
-
-// function render(){
-//     RESULTSX.innerHTML = state.searchResult;
-//     SEARCH_HEADER.innerHTML = state.searchHeader;
-//     QUERY.value = state.searchQuery;
-// }
-
-// (function initialize() {
-//     window.history.replaceState(state, null, "");
-//     render(state);
-//   })();
-
-
+function updateCurrentUser(userDetails){
+    let currentUser = userDetails;
+    return localStorage.setItem('currentUser', JSON.stringify(currentUser))
+}
 
 
 function openUserProfileModal() {
@@ -159,7 +123,6 @@ function appendUserDetails(user){
 
     let name = user.handle;
     let firstName = name.replace(/ .*/,'');
-    console.log(firstName)
 
     CURRENT_USER.innerHTML = `<span class="material-icons">account_circle</span>Hello &nbsp; <span class="orange">  ${firstName}</span>`;
     profileUserName.innerHTML = user.handle;
@@ -171,8 +134,6 @@ function appendUserDetails(user){
     let dateCreated = dayjs(user.createdAt).format('MMM DD YYYY - (h:mm a)');
     profileUserDate.innerHTML = `You started using nutri-fí on <span class="orange">${dateCreated}</span>`
     let conditions = user.condition;
-
-    console.log(conditions)
 
     if (!Array.isArray(conditions) || !conditions.length) {
         profileUserAllergies.innerHTML = `You haven't entered any medical conditions yet, you can change that by clicking the "edit your info" button`
@@ -222,16 +183,8 @@ function appendUserDetails(user){
         updateDiabetesIconFalse.classList.remove("hide");
         updateDiabetesIconTrue.classList.add("hide");
     }
-
-    console.log("diabetes", updateDiabetes.value);
-    console.log("peanut", updatePeanut.value);
-    console.log("soy", updateSoy.value);
-
 }
 
-// let peanutStatusUpdate;
-// let soyStatusUpdate;
-// let diabetesStatusUpdate;
 function selectPeanut() {
     if(updatePeanut.classList.contains("medical-selected")) {
         peanutStatusUpdate = false;
@@ -284,23 +237,15 @@ updateDiabetes.addEventListener("click", selectDiabetes, false)
 function updateUserInfo(){
     loaderUpdate.classList.remove("hide");
     let handle = handleElement.value;
-    console.log("handle", handle)
 
     const TOKEN = localStorage.FBIdToken;
     let config;
     if(TOKEN) {
         const decodedToken = jwt_decode(TOKEN);
-        if(decodedToken && (decodedToken.exp * 1000 < Date.now())){ //if TOKEN is expired
-            console.log("yes")
+        if(decodedToken && (decodedToken.exp * 1000 < Date.now())){
             sessionExpiredModal.classList.remove("hide");
-            // localStorage.removeItem('FBIdToken')
-            // localStorage.removeItem('currentUser')
-            // updateError.innerHTML = "Your current session expired, please login to update your profile. Or you can keep using the app anonymously"
-            // window.location.href = '/';
             loaderUpdate.classList.add("hide");
-            // CURRENT_USER.innerHTML = ""
         } else {
-            console.log("no")
           config = {
             headers: { Authorization: `${TOKEN}` }
           };
@@ -323,14 +268,10 @@ function updateUserInfo(){
         )
         .then(function (response) {
             loaderUpdate.classList.add("hide");
-            console.log(response.data)
 
             updateCurrentUser(response.data.userDetails);
 
             appendUserDetails(response.data.userDetails);
-
-            // checkTokenStatus();
-
 
             editableUserInfo.forEach((element) => {
                 element.classList.remove("hide");
@@ -342,7 +283,6 @@ function updateUserInfo(){
         })
         .catch(function (error) {
             loaderUpdate.classList.add("hide");
-            console.log(error.response.data)
         })
 
 
@@ -354,7 +294,6 @@ saveUserUpdate.addEventListener("click", updateUserInfo, false)
 
 closeBtn.forEach((button) => {
     button.addEventListener("click", function(){
-        console.log(HOME_MAIN_LOGO.style.display)
         if (SEARCH_WRAP.style.display === "none") {
             SEARCH_WRAP.style.display = "flex";
             AUTH_LOGIN_WRAP.style.display = "none";
@@ -371,7 +310,6 @@ closeBtn.forEach((button) => {
 })
 
 
-// GO HOME 
 function goHome() {
     let searchSession = localStorage.searchSession;
     if(searchSession) {
@@ -384,10 +322,9 @@ NAV_HOME.addEventListener("click", goHome, false);
 
 
 document.addEventListener("click", (evt) => {
-    let targetElement = evt.target; // clicked element
+    let targetElement = evt.target;
 
     if (AUTH_LOGIN_WRAP.style.display == "none" && AUTH_SIGNUP_WRAP.style.display == "none") {
-        console.log("Login and Signup Wrap is not visible")
     } else if (targetElement == NAV_LOGIN_BTN) { 
         clickNavLogin();
     } else if (targetElement == NAV_SIGNUP_BTN){
@@ -405,14 +342,8 @@ document.addEventListener("click", (evt) => {
 
     if(TOKEN) {
         const decodedToken = jwt_decode(TOKEN);
-        console.log(decodedToken.exp * 1000);
-        console.log(Date.now())
-        if(decodedToken.exp * 1000 < Date.now()){ //if TOKEN is expired
-            // localStorage.removeItem('currentUser');    
-            // localStorage.removeItem('FBIdToken');
+        if(decodedToken.exp * 1000 < Date.now()){ 
             sessionExpiredModal.classList.remove("hide");
-            // ERROR_MSG.innerHTML = `<h3> Session expired, please login or continue to use the app anonymously.</h3>`
-            // CURRENT_USER.innerHTML = ""
         }
     } else if (!TOKEN) {
         localStorage.removeItem('currentUser');    
@@ -422,18 +353,15 @@ document.addEventListener("click", (evt) => {
 
         let name = currentUser.handle;
         let firstName = name.replace(/ .*/,'');
-        console.log(firstName)
 
         CURRENT_USER.classList.remove("hide")
         CURRENT_USER.innerHTML = `<span class="material-icons">account_circle</span>Hello &nbsp; <span class="orange">  ${firstName}</span>`;
-        console.log(CURRENT_USER.innerHTML)
 
-        NAV_LOGIN_BTN.style.display="none"; // Hide Nav Login Button
-        NAV_SIGNUP_BTN.style.display="none"; // Hide Nav Signup Button
-        AUTH_LOGIN_WRAP.style.display="none"; // Hide Login Field
-        NAV_LOGOUT_BTN.style.display="flex"; // Show Nav Logout Button
-        SEARCH_WRAP.style.display="flex"; // Show search Field
-        console.log(currentUser)
+        NAV_LOGIN_BTN.style.display="none";
+        NAV_SIGNUP_BTN.style.display="none";
+        AUTH_LOGIN_WRAP.style.display="none";
+        NAV_LOGOUT_BTN.style.display="flex";
+        SEARCH_WRAP.style.display="flex";
     }
 }());
 
@@ -441,7 +369,6 @@ document.addEventListener("click", (evt) => {
 (function checkSearchSession() {
     let searchSession = localStorage.searchSession;
     if (searchSession) {
-        console.log(searchSession)
         RESULTSX.innerHTML = searchSession;
         
         SEARCH_HEADER.innerHTML = localStorage.searchHeader
@@ -450,18 +377,15 @@ document.addEventListener("click", (evt) => {
 
 
         let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-        console.log(vw)
             if (vw < 1100 && HOME_MAIN_LOGO.style.display === "none") {
                 MOBILE_SEARCH_NAV_CONTAINER.insertBefore(QUERY, MOBILE_SEARCH_NAV_CONTAINER.firstChild);
                 MOBILE_SEARCH_NAV_CONTAINER.style.display = "flex";
                 SEARCH_NAV_CONTAINER.style.display = "none";
-                console.log("mobile")
                 
             } else if (vw >= 1100 && HOME_MAIN_LOGO.style.display === "none") {
                 SEARCH_NAV_CONTAINER.insertBefore(QUERY, SEARCH_NAV_CONTAINER.firstChild);
                 SEARCH_NAV_CONTAINER.style.display = "flex";
                 MOBILE_SEARCH_NAV_CONTAINER.style.display = "none";
-                console.log("not mobile")
     
             }
 
@@ -477,9 +401,7 @@ let query;
 function changeHeader() {
     query = QUERY.value;
     SEARCH_HEADER.innerHTML = `Searching for <span style="color:#ed4700">${query}</span><span class=loader2></span>`;
-    // return query;
 }
-// changeHeader(query);
 
 
 
@@ -496,33 +418,23 @@ function search() {
     let query = QUERY.value;
     changeHeader(query);
 
-    // history.pushState(query, `search for ${query}`, `/search=${query}`)
-
     if (query.trim() === '') {
         ERROR_MSG.innerHTML = "Search must not be empty, please enter a valid recipe"
         SEARCH_HEADER.innerHTML = `Error`;
-        // SEARCH_HEADER.innerHTML = ""
     } else {
-        // LOADER.className = "loader-container"
         ERROR_MSG.innerHTML = ""
     }
 
-    console.log(query);
-
 
     let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-    console.log(vw)
         if (vw < 1100) {
             MOBILE_SEARCH_NAV_CONTAINER.insertBefore(QUERY, MOBILE_SEARCH_NAV_CONTAINER.firstChild);
             MOBILE_SEARCH_NAV_CONTAINER.style.display = "flex";
             SEARCH_NAV_CONTAINER.style.display = "none";
-            console.log("mobile")
-            
         } else {
             SEARCH_NAV_CONTAINER.insertBefore(QUERY, SEARCH_NAV_CONTAINER.firstChild);
             SEARCH_NAV_CONTAINER.style.display = "flex";
             MOBILE_SEARCH_NAV_CONTAINER.style.display = "none";
-            console.log("not mobile")
         }
 
 
@@ -533,15 +445,11 @@ function search() {
     HOME_MAIN_LOGO.style.display = "none";
     HOME_CAPTION.style.display = "none";
     
-
-    // let currentUser = localStorage.currentUser
     const TOKEN = localStorage.FBIdToken;
     let config;
-    console.log(`Current Token is ${TOKEN}`)
     if(TOKEN) {
-        console.log("there is a token")
         const decodedToken = jwt_decode(TOKEN);
-        if(decodedToken && (decodedToken.exp * 1000 < Date.now())){ //if TOKEN is expired
+        if(decodedToken && (decodedToken.exp * 1000 < Date.now())){
             
             localStorage.removeItem('FBIdToken')
             localStorage.removeItem('currentUser')
@@ -552,16 +460,13 @@ function search() {
           config = {
             headers: { Authorization: `${TOKEN}` }
           };
-          console.log("Using token for authorization")
         }
       } else {
         config = {
           headers: { Authorization: null}
         }
-        console.log("NOT using token for authorization")
       }
 
-    console.log(config);
 
     RESULTS.innerHTML= "";
     RESULTSX.innerHTML= "";
@@ -580,7 +485,6 @@ function search() {
 
         if (serverResponse && (searchSession !== null)) {
             localStorage.removeItem("searchSession")
-            console.log("Former search session removed")
         }
         if (serverResponse == "") {
             if (config.headers.Authorization !== null) {
@@ -591,19 +495,12 @@ function search() {
             SEARCH_HEADER.innerHTML = `No results for <span style="color:#ed4700">${query}</span>`;
 
          }
-        //  if (Object.keys(serverResponse).length === 0) {
-        //     console.log(serverResponse);
-        //     console.log(typeof(serverResponse))
-        // }
 
         
 
         if (serverResponse.length > 0) {
             SEARCH_HEADER.innerHTML = `Showing results for <span style="color:#ed4700">${query}</span>`;
 
-            // LOADER.className += " hidden";
-
-            // SEARCH_HEADER.innerHTML = `Showing results for <span style="color:#ed4700">${query}</span>`;
             searchHeader = localStorage.setItem("searchHeader", SEARCH_HEADER.innerHTML)
         }
 
@@ -643,8 +540,6 @@ function search() {
         imageSrc = imageSrc.substring(0, imageSrc.length -11);
         imageSrc = imageSrc + "556x370.jpg";
         imgElement.src = imageSrc;
-
-        // imgElement.src = `${serverResponse[i].image}`;
   
         /* Carbohydrate Content */
         let nutrtionDetails = serverResponse[i].nutrition.nutrients
@@ -653,9 +548,7 @@ function search() {
 
         carbElement = document.createElement("p");
         carbElement.classList.add(`recipe-carb`);
-        console.log("ahhhhhhhhhhh")
         carbNode = document.createTextNode(`Carbohydrate amount: ${nutrtionDetails[1].amount}${nutrtionDetails[1].unit}`);
-        console.log("gooooooooooooo")
         carbElement.appendChild(carbNode);
 
         caloriesElement = document.createElement("p");
@@ -690,18 +583,13 @@ function search() {
             timeNode = document.createTextNode(`Cook time: ${serverResponse[i].readyInMinutes} minutes`)
         }
         timeElement.appendChild(timeNode);
-        
-       
-        /*** APPENDING ELEMENTS TO WRAPPERS***************/
 
 
-        // Recipe Name and Image Wrapper Div
         let name_and_image = document.createElement("div");
         name_and_image.classList.add(`recipe-name-and-image`);
         name_and_image.appendChild(recipeNameElement);
         name_and_image.appendChild(imgElement);
 
-        // Recipe Numbers Wrapper Div
         let recipe_numbers = document.createElement("div");
         recipe_numbers.classList.add(`recipe-numbers-wrapper`);
         recipe_numbers.appendChild(caloriesElement);
@@ -710,43 +598,34 @@ function search() {
         recipe_numbers.appendChild(timeElement);
 
 
-        // Recipe Info Wrapper Div
         let recipe_info = document.createElement("div");
         recipe_info.classList.add(`recipe-info-wrapper`);
         recipe_info.appendChild(name_and_image);
         recipe_info.appendChild(recipe_numbers);
-        
-        /*** APPEND ALL ELEMENTS TO RESULTSX */
+
         result = document.createElement("div");
         result.classList.add(`recipe-result`)
         result.setAttribute("id", `result-0${i+1}`)
 
         result.appendChild(recipe_info);
-        // result.appendChild(recipe_lists);
 
         RESULTSX.appendChild(result)
 
-        // searchSession = localStorage.setItem("searchSession", RESULTSX.outerHTML);
-
-        /****************************************************/
-
         let EACH_RECIPE_RESULT;
-        EACH_RECIPE_RESULT = document.querySelector(`#result-0${i+1}`); // Each recipe in serverResponse obtained from invisible RESULTS
+        EACH_RECIPE_RESULT = document.querySelector(`#result-0${i+1}`);
 
-        /************************************* RECIPE INGREDIENTS **************************************************************/
-        let ingredients = serverResponse[i].missedIngredients; // Obtain ingredients from server response
+        let ingredients = serverResponse[i].missedIngredients;
 
         for (let j = 0; j < ingredients.length; j++) {
-            RESULTS.innerHTML += `<p class="recipe-ingredient" id="result-${i+1}-ingredient">${ingredients[j].original}</p>` // Add recipes to the  invisible RESULTS
+            RESULTS.innerHTML += `<p class="recipe-ingredient" id="result-${i+1}-ingredient">${ingredients[j].original}</p>`
         }
 
         let INGREDIENT_LIST;
         let INGREDIENT_LIST_DIV;
 
-        INGREDIENT_LIST_DIV = document.createElement("div") // Create a div for ingredients list
+        INGREDIENT_LIST_DIV = document.createElement("div") 
         INGREDIENT_LIST_DIV.classList.add(`recipe-ingredients-wrapper`);
-        INGREDIENT_LIST = document.querySelectorAll(`#result-${i+1}-ingredient`); // Ingredients lists belonging to each serverResponse recipe obtained from invisible RESULTS
-        console.log(INGREDIENT_LIST.length);
+        INGREDIENT_LIST = document.querySelectorAll(`#result-${i+1}-ingredient`);
         if (INGREDIENT_LIST.length !== 0) {
             INGREDIENT_LIST_DIV.innerHTML += `<h4 class="ingredient-header" id="ingredient-${i+1}-header">Ingredients: </h4>`
         } else {
@@ -754,20 +633,17 @@ function search() {
         }
 
         for (let i = 0; i < INGREDIENT_LIST.length; i++) {
-            INGREDIENT_LIST_DIV.appendChild(INGREDIENT_LIST[i]); // Append ingredients list to each recipe response
+            INGREDIENT_LIST_DIV.appendChild(INGREDIENT_LIST[i]); 
         }
-        EACH_RECIPE_RESULT.appendChild(INGREDIENT_LIST_DIV) // Append ingredients to each ingredients list div
-        /*************************************************************************************************************************/
+        EACH_RECIPE_RESULT.appendChild(INGREDIENT_LIST_DIV) 
 
-
-        /************************************* COOKING INSTRUCTIONS **************************************************************/
-        let instructions = serverResponse[i].analyzedInstructions; // Obtain instructions object from server response
+        let instructions = serverResponse[i].analyzedInstructions; 
         
         for (let inst = 0; inst < instructions.length; inst++) {
-            let cookingSteps = instructions[inst].steps; // Obtain instructions steps object from each recipe
+            let cookingSteps = instructions[inst].steps; 
     
             for (let s = 0; s < cookingSteps.length; s++) {
-            RESULTS.innerHTML += `<p class="recipe-instruction" id="result-${i+1}-instruction">${cookingSteps[s].step}</p>` // Obtain each instruction step  from instructions steps object and add to invisible RESULT element
+            RESULTS.innerHTML += `<p class="recipe-instruction" id="result-${i+1}-instruction">${cookingSteps[s].step}</p>` 
             }
             
         }
@@ -775,25 +651,21 @@ function search() {
         let INSTRUCTION_LIST;
         let INSTRUCTION_LIST_DIV;
 
-        INSTRUCTION_LIST_DIV = document.createElement("div") // Create a div for instructions list
+        INSTRUCTION_LIST_DIV = document.createElement("div") 
         INSTRUCTION_LIST_DIV.classList.add(`recipe-instructions-wrapper`);
-        INSTRUCTION_LIST = document.querySelectorAll(`#result-${i+1}-instruction`); // Instructions lists belonging to each serverResponse recipe obtained from invisible RESULTS
+        INSTRUCTION_LIST = document.querySelectorAll(`#result-${i+1}-instruction`); 
 
         if (INSTRUCTION_LIST.length !== 0) {
             INSTRUCTION_LIST_DIV.innerHTML += `<h4 class="instructions-header" id="instructions-${i+1}-header">Directions: </h4>`
         } else {
             INSTRUCTION_LIST_DIV.innerHTML += `<h4 class="instructions-header" id="instructions-${i+1}-header">Directions: </h4><p>Read the detailed directions at <a href="${serverResponse[i].sourceUrl}" target="_blank">${serverResponse[i].creditsText}</a></p>`
-            console.log("Hello eyin temi")
         }
 
         for (let i = 0; i < INSTRUCTION_LIST.length; i++) {
-            INSTRUCTION_LIST_DIV.appendChild(INSTRUCTION_LIST[i]); // Append instructions list to each recipe response
+            INSTRUCTION_LIST_DIV.appendChild(INSTRUCTION_LIST[i]); 
         }
-        EACH_RECIPE_RESULT.appendChild(INSTRUCTION_LIST_DIV) // Append instructions to each instructions list div
+        EACH_RECIPE_RESULT.appendChild(INSTRUCTION_LIST_DIV) 
 
-        /*************************************************************************************************************************/
-
-        // Recipe Lists Wrapper Div
         let recipe_lists = document.createElement("div");
         recipe_lists.classList.add(`recipe-lists-wrapper`);
         recipe_lists.appendChild(INGREDIENT_LIST_DIV);
@@ -805,12 +677,6 @@ function search() {
         searchSession = localStorage.setItem("searchSession", RESULTSX.outerHTML);
 
       }
-
-        // state.searchQuery = QUERY.value;
-        // state.searchResult = RESULTSX.innerHTML;
-        // state.searchHeader = SEARCH_HEADER.innerHTML;
-
-        // window.history.pushState(state, null, "")
       
         NAV_SEARCH_BTN.forEach((button) => {
         button.classList.remove("no-pointer-event")
@@ -819,82 +685,31 @@ function search() {
       })
   
       .catch( (err) => {
-          console.log(err.response);
     });
 
 }
 
-// window.onpopstate = function (event) {
-//     if (event.state) { state = event.state; }
-//     searchSession = localStorage.setItem("searchSession", state.searchResult);
-//     searchHeader = localStorage.setItem("searchHeader", state.searchHeader);
-//     if (state.searchResult == "") {
-//         // window.location.href = '/index.html';
-//     }
-//     render(state);
-//   };
-
-
 function checkScreenWidth() {
     let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-    console.log(vw)
         if (vw < 1100 && HOME_MAIN_LOGO.style.display === "none") {
             MOBILE_SEARCH_NAV_CONTAINER.insertBefore(QUERY, MOBILE_SEARCH_NAV_CONTAINER.firstChild);
             MOBILE_SEARCH_NAV_CONTAINER.style.display = "flex";
             SEARCH_NAV_CONTAINER.style.display = "none";
-            console.log("mobile")
             
         } else if (vw >= 60 && HOME_MAIN_LOGO.style.display === "none") {
             SEARCH_NAV_CONTAINER.insertBefore(QUERY, SEARCH_NAV_CONTAINER.firstChild);
             SEARCH_NAV_CONTAINER.style.display = "flex";
             MOBILE_SEARCH_NAV_CONTAINER.style.display = "none";
-            console.log("not mobile")
-
         }
 }
 
-// let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
-// console.log(isMobile)
-// if (isMobile) {
-//     MOBILE_SEARCH_NAV_CONTAINER.insertBefore(QUERY, MOBILE_SEARCH_NAV_CONTAINER.firstChild);
-//     MOBILE_SEARCH_NAV_CONTAINER.style.display = "flex";
-// } else {
-//     SEARCH_NAV_CONTAINER.insertBefore(QUERY, SEARCH_NAV_CONTAINER.firstChild);
-//     SEARCH_NAV_CONTAINER.style.display = "flex";
-// }
-
-
 window.addEventListener("resize", checkScreenWidth, false)
-
-
-// document.querySelector(".back").addEventListener("click", function(){
-//     console.log(queryTerms);
-//     console.log(queryTerms[queryTerms.length - 2])
-
-//     query = queryTerms[queryTerms.length - 2];
-//     console.log(query);
-//     search("muffins");
-
-//     queryTerms.pop(query)
-//     // console.log(queryTerms.pop())
-// })
-
-
-// window.addEventListener("popstate", event => {
-//     console.log(event.state.value)
-//     console.log(query);
-//     changeHeader(event.state);
-//     console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
-// })
 
 SEARCH_BTN.addEventListener("click", search, false)
 
 NAV_SEARCH_BTN.forEach((button) => {
     button.addEventListener("click", search, false)
 })
-// NAV_SEARCH_BTN.addEventListener("click", search, false)
-
-/* Navivation Buttons */
 
 function clickNavLogin () {
     window.scrollTo(0, 0);
@@ -903,7 +718,6 @@ function clickNavLogin () {
         AUTH_SIGNUP_WRAP.style.display = "none"
     }
     AUTH_LOGIN_WRAP.style.display="flex";
-    console.log("Nav Login Button Clicked");
 }
 
 NAV_LOGIN_BTN.addEventListener("click", clickNavLogin, false);
@@ -917,7 +731,6 @@ function clickNavSignup () {
         AUTH_LOGIN_WRAP.style.display = "none"
     }
     AUTH_SIGNUP_WRAP.style.display="flex";
-    console.log("Nav Signup Button Clicked");
 }
 
 NAV_SIGNUP_BTN.addEventListener("click", clickNavSignup, false);
@@ -937,14 +750,6 @@ function logout () {
 NAV_LOGOUT_BTN.addEventListener("click", logout, false);
 
 
-
-/* Search Button */
-
-
-
-
-
-/* Login Button */
 const setAuthorizationHeader = (token) => {
     const FBIdToken = `Bearer ${token}`;
     localStorage.setItem('FBIdToken', FBIdToken);
@@ -983,21 +788,19 @@ function login() {
 
             let name = response.data.userDetails.handle;
             let firstName = name.replace(/ .*/,'');
-            console.log(firstName)
 
             CURRENT_USER.classList.remove("hide");
             CURRENT_USER.innerHTML = `<span class="material-icons">account_circle</span>Hello &nbsp; <span class="orange">  ${firstName}</span>`;
     
-            NAV_LOGIN_BTN.style.display="none"; // Hide Nav Login Button
-            NAV_SIGNUP_BTN.style.display="none"; // Hide Nav Signup Button
-            AUTH_LOGIN_WRAP.style.display="none"; // Hide Login Field
-            NAV_LOGOUT_BTN.style.display="flex"; // Show Nav Logout Button
-            SEARCH_WRAP.style.display="flex"; // Show search Field
+            NAV_LOGIN_BTN.style.display="none"; 
+            NAV_SIGNUP_BTN.style.display="none";
+            AUTH_LOGIN_WRAP.style.display="none"; 
+            NAV_LOGOUT_BTN.style.display="flex";
+            SEARCH_WRAP.style.display="flex";
         })
         .catch((error) => {
             login_loader.classList.add("hide");
             document.querySelector(".wrong-credentials-login").innerHTML = "Wrong credentials, please try again";
-            console.log(error.response.data.general)
         })
 
 }
@@ -1017,8 +820,6 @@ let diabetesStatus = false;
 function signup () {
     signup_loader.classList.remove("hide");
 
-
-    console.log("Signup Button Clicked")
     axios.post(
         'https://us-central1-drecipe-dc133.cloudfunctions.net/api/signup',
         {
@@ -1035,8 +836,6 @@ function signup () {
     .then(function (response) {
         signup_loader.classList.add("hide");
 
-        console.log(response.data.userName)
-        console.log(response.data.token)
         setAuthorizationHeader(response.data.token)
 
         updateCurrentUser(response.data.userDetails);
@@ -1044,17 +843,16 @@ function signup () {
 
         let name = response.data.userDetails.handle;
         let firstName = name.replace(/ .*/,'');
-        console.log(firstName)
         
         CURRENT_USER.innerHTML = `<span class="material-icons">account_circle</span>Hello &nbsp; <span class="orange">  ${firstName}</span>`;
 
         appendUserDetails(response.data.userDetails)
 
-        NAV_LOGIN_BTN.style.display="none"; // Hide Nav Login Button
-        NAV_SIGNUP_BTN.style.display="none"; // Hide Nav Signup Button
-        AUTH_SIGNUP_WRAP.style.display="none"; // Hide Login Field
-        NAV_LOGOUT_BTN.style.display="flex"; // Show Nav Logout Button
-        SEARCH_WRAP.style.display="flex"; // Show search Field
+        NAV_LOGIN_BTN.style.display="none";
+        NAV_SIGNUP_BTN.style.display="none";
+        AUTH_SIGNUP_WRAP.style.display="none";
+        NAV_LOGOUT_BTN.style.display="flex";
+        SEARCH_WRAP.style.display="flex";
 
 
     
@@ -1062,7 +860,6 @@ function signup () {
     .catch(function (error) {
 
         signup_loader.classList.add("hide");
-        console.log(error.response)
 
         let nameError = error.response.data.handle;
         let emailError = error.response.data.email;
@@ -1080,7 +877,6 @@ function signup () {
               SIGNUP_EMAIL.classList.add("red");
               emailLabel.innerHTML = "Please enter a valid email"
               emailLabel.innerHTML = error.response.data.email
-              console.log(error.response.data)
           }
           if (typeof passwordError !== 'undefined') {
             if (passwordError !== "Please use a stronger password") {
@@ -1116,11 +912,6 @@ SIGNUP_CONFIRM_PASSWORD.addEventListener("keypress", function(){
 }, false);
 
 
-
-
-
-/* SIGNUP ALLERGIES*/
-
 const SIGNUP_PEANUT = document.querySelector("#signup-peanut");
 const SIGNUP_SOY = document.querySelector("#signup-soy");
 const SIGNUP_DIABETES = document.querySelector("#signup-diabetes");
@@ -1136,7 +927,6 @@ function peanut() {
         PEANUT_BTN.style.border = "1px solid #ff6435";
         CHECK.style.display = "";
         CHECK.style.color = "#ed4700";
-        console.log(peanutStatus);
 
     } else if (SIGNUP_PEANUT.className = "medical-condition-wrap true") {
         SIGNUP_PEANUT.className = "medical-condition-wrap false";
@@ -1144,7 +934,6 @@ function peanut() {
         PEANUT_BTN.style.color = "rgb(162, 162, 162)";
         PEANUT_BTN.style.border = "1px solid rgb(162, 162, 162)";
         CHECK.style.display = "none";
-        console.log(peanutStatus);
     }
 }
 SIGNUP_PEANUT.addEventListener("click", peanut, false);
@@ -1161,7 +950,6 @@ function soy() {
         SOY_BTN.style.border = "1px solid #ff6435";
         CHECK.style.display = "";
         CHECK.style.color = "#ed4700";
-        console.log(soyStatus);
 
     } else if (SIGNUP_SOY.className = "medical-condition-wrap true") {
         SIGNUP_SOY.className = "medical-condition-wrap false"
@@ -1169,7 +957,6 @@ function soy() {
         SOY_BTN.style.color = "rgb(162, 162, 162)";
         SOY_BTN.style.border = "1px solid rgb(162, 162, 162)";
         CHECK.style.display = "none";
-        console.log(soyStatus);
     }
 }
 SIGNUP_SOY.addEventListener("click", soy, false);
@@ -1186,7 +973,6 @@ function diabetes() {
         DIABETES_BTN.style.border = "1px solid #ff6435";
         CHECK.style.display = "";
         CHECK.style.color = "#ed4700";
-        console.log(diabetesStatus);
 
     } else if (SIGNUP_DIABETES.className = "medical-condition-wrap true") {
         SIGNUP_DIABETES.className = "medical-condition-wrap false";
@@ -1194,7 +980,6 @@ function diabetes() {
         DIABETES_BTN.style.color = "rgb(162, 162, 162)";
         DIABETES_BTN.style.border = "1px solid rgb(162, 162, 162)";
         CHECK.style.display = "none";
-        console.log(diabetesStatus);
     }
 }
 SIGNUP_DIABETES.addEventListener("click", diabetes, false);

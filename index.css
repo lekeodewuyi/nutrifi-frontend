@@ -12,7 +12,6 @@ body {
     touch-action: manipulation;
     margin: 0;
     padding: 0;
-    /* background-color: aliceblue; */
     background-color: rgb(250, 253, 255);
     color: #616161;
     scroll-behavior: smooth;
@@ -238,13 +237,11 @@ body {
     width: 100px;
     margin: 0;
     border: 1px solid rgba(213, 35, 22, 0.4);
-    /* border-bottom: 0; */
 }
 
 
 #update-error {
     width: 100%;
-    /* display: flex; */
     align-items: center;
     justify-content: center;
     margin-top: 40px;
@@ -278,7 +275,7 @@ body {
 
 .loader-container.hidden {
     animation: fadeOut 1s;
-    animation-fill-mode: forwards; /*  When animation finishes, the fadeOut properties stay */
+    animation-fill-mode: forwards;
 }
 
 @keyframes fadeOut {
@@ -335,9 +332,6 @@ a:hover {
     text-decoration: none;
     color: #ff6435;
     background-color: #fff8f7;
-    /* padding: 3px 5px; */
-    /* border-color: #ffdacf; */
-    /* border-style: solid;border-width: 0.1rem; */
     font-size: 1.5em;
 }
 
@@ -371,7 +365,6 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* border: 1px solid #cccccc; */
     width: 340px;
     width:90vw;
     height: 40px;
@@ -424,7 +417,6 @@ a:hover {
     position: absolute;
     right: 0;
     padding: 0px 10px;
-    /* color: #cccccc; */
     cursor: pointer;
     padding-left: 7px;
     border-style: none;
@@ -432,10 +424,6 @@ a:hover {
 
 .search-icon:hover {
     color: #ed4700;
-    /* cursor: pointer;
-    padding-left: 7px;
-    width: 40px;
-    border-style: none; */
 }
 
 #nav-logout {
@@ -464,7 +452,6 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* isolation: isolate; */
     font-family: 'Noto Sans JP', sans-serif;
     cursor: pointer;
     border-radius: 5px;
@@ -515,8 +502,6 @@ button:active {
     margin: 0 auto;
     padding-top: 170px;
     height: Calc(100vh - 100px);
-    /* height: Calc(100% - 100px); */
-    /* height: 100vh; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -547,7 +532,6 @@ button:active {
     border-color: rgb(184, 184, 184);
     margin-top: 0;
 
-    /* color: inherit; */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -621,7 +605,6 @@ button:active {
  }
 
 .signup-allergy-summary {
-    /* position: absolute; */
     margin-top: 50px;
     bottom: 0;
     font-size: 0.5rem;
@@ -692,7 +675,6 @@ button:active {
     position: absolute;
     top: 200px;
     padding: 0px 5px;
-    /* background-color: yellow; */
 }
 
 
@@ -705,13 +687,11 @@ button:active {
 }
 
 .recipe-result {
-    /* box-shadow: rgba(2, 12, 27, 0.3) 0px 10px 30px -15px; */
     box-shadow: rgba(4, 74, 111, 0.5) 0px 10px 30px -15px;
     display: flex;
     flex-direction: column;
     margin: 50px;
     padding: 40px 80px;
-    /* background-color: white; */
     background: rgb(255,255,255);
     background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
     border: 1px solid #ffeae4;
@@ -737,12 +717,10 @@ button:active {
 .recipe-lists-wrapper {
     color: #616161;
     font-size: 14px;
-    /* display: flex; */
     justify-content: space-evenly;
 }
 
 .recipe-ingredients-wrapper {
-    /* background-color: azure; */
     flex: 1;
     margin: 30px 0;
 }
@@ -798,7 +776,6 @@ button:active {
 
 label {
     font-size: 12px;
-    /* color: white; */
     opacity: 0.8;
     font-weight: 400;
 }
@@ -858,8 +835,6 @@ label {
 }
 
 .medical-condition-wrap:hover button{
-    /* color: #ed4700; */
-    /* border: 1px solid #ff6435; */
     box-shadow: rgba(4, 74, 111, 1) 0px 10px 25px -12px;
 }
 
@@ -884,10 +859,8 @@ label {
     padding-right: 40px;
     padding-left: 10px;
     color: rgb(162, 162, 162);
-    /* color: #ed4700; */
     background-color: white;
     border: 1px solid rgb(162, 162, 162);
-    /* border: 1px solid #ff6435; */
 }
 
 
@@ -955,13 +928,11 @@ footer .big-footer {
 .loader2 {
     margin-left: 5px;
     display: inline-block;
-    /* color: blue; */
-    /* background-color: red; */
-   border: 3px solid #616161;
-   border-top: 2px solid transparent;
-   border-radius: 100px;
-   width: 25px;
-   height: 25px;
+    border: 3px solid #616161;
+    border-top: 2px solid transparent;
+    border-radius: 100px;
+    width: 25px;
+    height: 25px;
 	-webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
 }
@@ -1106,7 +1077,6 @@ footer .big-footer {
     }
 
     #home-caption {
-        /* text-align: left; */
         width: 320px;
         margin-top: 30px;
     }
@@ -1205,10 +1175,6 @@ footer .big-footer {
 
 
 
-
-    #main-wrap {
-        /* height: Calc(100vh - 200px) */
-    }
     #nav-container {
         padding: 10px 20px
     }
@@ -1311,7 +1277,6 @@ footer .big-footer {
         margin-top: 0px;
         margin: auto;
         left: 0;
-        /* margin-right: 105px; */
         right: 0;
     }
 
