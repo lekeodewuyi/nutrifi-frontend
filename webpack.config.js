@@ -10,7 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './src/newscript.js',
+        app: './src/index.js',
     },
     output: {
         path: path.resolve(__dirname, 'build'),
